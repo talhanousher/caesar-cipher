@@ -38,9 +38,17 @@ public class CaesersCipher {
         for (int i = 0; i < str.length(); i++) {
             char ch;
             if (Character.isLowerCase(encryptedStr.charAt(i))) {
-                ch = (char) (((int) ((encryptedStr.charAt(i) - key - 97) % 26) + 97));
+                if ((int) ((encryptedStr.charAt(i) - key)) < 97) {
+                    ch = (char) (((int) ((encryptedStr.charAt(i) - key - 97 + 26) % 26) + 97));
+                } else {
+                    ch = (char) (((int) ((encryptedStr.charAt(i) - key - 97) % 26) + 97));
+                }
             } else {
-                ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65) % 26) + 65));
+                if ((int) ((encryptedStr.charAt(i) - key)) < 65) {
+                    ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65 + 26) % 26) + 65));
+                } else {
+                    ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65) % 26) + 65));
+                }
             }
             decryptedStr.append(ch);
         }
