@@ -20,16 +20,21 @@ public class CaesersCipher {
         // TODO code application logic here
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Text : ");
-        String str = sc.next();
+        String str = sc.nextLine();
         //Encryption 
         int key = 3;
         StringBuffer encryptedStr = new StringBuffer();
+        System.out.println(str.length());
         for (int i = 0; i < str.length(); i++) {
             char ch;
             if (Character.isLowerCase(str.charAt(i))) {
                 ch = (char) (((int) ((str.charAt(i) + key - 97) % 26) + 97));
             } else {
-                ch = (char) (((int) ((str.charAt(i) + key - 65) % 26) + 65));
+                if (Character.isUpperCase(str.charAt(i))) {
+                    ch = (char) (((int) ((str.charAt(i) + key - 65) % 26) + 65));
+                } else {
+                    ch = str.charAt(i);
+                }
             }
             encryptedStr.append(ch);
         }
@@ -44,10 +49,14 @@ public class CaesersCipher {
                     ch = (char) (((int) ((encryptedStr.charAt(i) - key - 97) % 26) + 97));
                 }
             } else {
-                if ((int) ((encryptedStr.charAt(i) - key)) < 65) {
-                    ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65 + 26) % 26) + 65));
+                if (Character.isUpperCase(encryptedStr.charAt(i))) {
+                    if ((int) ((encryptedStr.charAt(i) - key)) < 65) {
+                        ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65 + 26) % 26) + 65));
+                    } else {
+                        ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65) % 26) + 65));
+                    }
                 } else {
-                    ch = (char) (((int) ((encryptedStr.charAt(i) - key - 65) % 26) + 65));
+                    ch = str.charAt(i);
                 }
             }
             decryptedStr.append(ch);
